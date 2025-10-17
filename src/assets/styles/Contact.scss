@@ -1,0 +1,119 @@
+.contact_wrapper svg {
+  font-size: 1em;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.contact-wrapper h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  font-family: 'DomaineDispNar-Bold', sans-serif;
+}
+
+.contact-wrapper p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.contact-form {
+  padding-top: 20px;
+
+  button {
+    float: right;
+    background-color: white;
+    color: #050f0b;
+    font-weight: 600;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+  }
+
+  button:hover {
+    background-color: #5000ca;
+    color: white;
+  }
+
+  fieldset {
+    background-color: white;
+  }
+
+  .MuiInputBase-root {
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  .MuiInputBase-input,
+  .MuiInputBase-inputMultiline {
+    color: #050f0b; /* Ensure text is visible */
+    font-family: 'DomaineDispNar-Medium', sans-serif;
+  }
+
+  .MuiFormLabel-root {
+    color: #050f0b; /* Label color */
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #5000ca; /* Focused border color */
+  }
+
+  .MuiFormHelperText-root {
+    color: #d32f2f; /* Error color */
+    font-size: 0.9rem;
+  }
+}
+
+label {
+  font-size: 1.2rem;
+  font-family: 'DomaineDispNar-Medium', sans-serif;
+}
+
+.form-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding-bottom: 15px;
+}
+
+.form-flex .MuiFormControl-root {
+  width: 100%;
+}
+
+form {
+  width: 100% !important;
+}
+
+.body-form {
+  width: 100% !important;
+  margin-bottom: 15px !important;
+}
+
+.thank-you-message {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5000ca;
+  margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-flex {
+    flex-direction: column;
+  }
+}
+
+.contact-form .MuiInputBase-input,
+.contact-form .MuiInputBase-inputMultiline {
+  color: #050f0b; /* visible text color */
+  font-family: 'DomaineDispNar-Medium', sans-serif;
+}
+
+.contact-form .MuiFormLabel-root {
+  color: #050f0b; /* label color */
+  font-family: 'DomaineDispNar-Medium', sans-serif;
+}
+
+.contact-form .MuiFormHelperText-root {
+  color: #d32f2f; /* error text color */
+}
+
