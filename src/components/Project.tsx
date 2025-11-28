@@ -3,6 +3,7 @@ import RecordentThumbnail from '../assets/images/recordent.png';
 import MFIRecordentThumbnail from '../assets/images/mfirecordent.png';
 import CricketScorecardThumbnail from '../assets/images/cricketScroreCard.jpg';
 import FlipYourCoin from '../assets/images/FlipYourCoin.png';
+import ecart from '../assets/images/ecart.png';
 import '../assets/styles/Project.scss';
 
 function Project() {
@@ -61,6 +62,19 @@ function Project() {
                     Developed a real-time cricket scorecard application that tracks live match scores, 
                     player stats, and match summaries. Built using React for the frontend and Node.js for 
                     backend API integration with live cricket data.
+                </p>
+            </div>
+            <div className="project">
+                <a href="https://e-kart-ten-brown.vercel.app//" target="_blank" rel="noreferrer">
+                    <img src={ecart} className="zoom" alt="Ecart thumbnail" width="100%" height="300" />
+                </a>
+                <a href="https://e-kart-ten-brown.vercel.app//" target="_blank" rel="noreferrer">
+                    <h2>E-Kart</h2>
+                </a>
+                <p>
+                    Developed an e-commerce platform for online shopping and product management. 
+                    Features include user authentication, secure payment processing, and 
+                    real-time order tracking.
                 </p>
             </div>
         </div>
