@@ -4,6 +4,7 @@ import MFIRecordentThumbnail from '../assets/images/mfirecordent.png';
 import CricketScorecardThumbnail from '../assets/images/cricketScroreCard.jpg';
 import FlipYourCoin from '../assets/images/FlipYourCoin.png';
 import ecart from '../assets/images/ecart.png';
+import makeANote from '../assets/images/ecart.png';
 import '../assets/styles/Project.scss';
 
 function Project() {
@@ -75,6 +76,19 @@ function Project() {
                     Developed an e-commerce platform for online shopping and product management. 
                     Features include user authentication, secure payment processing, and 
                     real-time order tracking.
+                </p>
+            </div>
+            <div className="project">
+                <a href="https://make-a-note-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
+                    <img src={makeANote} className="zoom" alt="Make a Note thumbnail" width="100%" height="300" />
+                </a>
+                <a href="https://make-a-note-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
+                    <h2>Make A Note</h2>
+                </a>
+                <p>
+                    A lightweight web-based note-taking app to quickly jot down and manage text notes.
+                    Bare-bones interface with essential add/edit/delete functionality, no fluff or accounts.
+                    Simple personal tool, built for fast, distraction-free note capture.
                 </p>
             </div>
         </div>
