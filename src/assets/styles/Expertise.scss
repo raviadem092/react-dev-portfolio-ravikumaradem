@@ -19,7 +19,13 @@
     align-items: center;
     text-align: left;
 }
-  
+
+.brand-icons{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 .chip {
     color: rgb(39, 40, 34) !important;
     background-color: white !important;
