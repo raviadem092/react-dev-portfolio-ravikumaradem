@@ -4,7 +4,7 @@ import MFIRecordentThumbnail from '../assets/images/mfirecordent.png';
 import CricketScorecardThumbnail from '../assets/images/cricketScroreCard.jpg';
 import FlipYourCoin from '../assets/images/FlipYourCoin.png';
 import ecart from '../assets/images/ecart.png';
-import makeANote from '../assets/images/ecart.png';
+import makeANote from '../assets/images/makeANote.png';
 import '../assets/styles/Project.scss';
 
 function Project() {
