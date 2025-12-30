@@ -65,10 +65,10 @@ function Project() {
                 </p>
             </div>
             <div className="project">
-                <a href="https://e-kart-ten-brown.vercel.app//" target="_blank" rel="noreferrer">
+                <a href="https://e-kart-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
                     <img src={ecart} className="zoom" alt="Ecart thumbnail" width="100%" height="300" />
                 </a>
-                <a href="https://e-kart-ten-brown.vercel.app//" target="_blank" rel="noreferrer">
+                <a href="https://e-kart-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
                     <h2>E-Kart</h2>
                 </a>
                 <p>
