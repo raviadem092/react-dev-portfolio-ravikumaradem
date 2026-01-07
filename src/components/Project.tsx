@@ -40,32 +40,6 @@ function Project() {
                 </p>
             </div>
             <div className="project">
-                <a href="https://mfi.recordent.com" target="_blank" rel="noreferrer">
-                    <img src={MFIRecordentThumbnail} className="zoom" alt="MFI Recordent thumbnail" width="100%" height="300" />
-                </a>
-                <a href="https://mfi.recordent.com" target="_blank" rel="noreferrer">
-                    <h2>MFI Recordent</h2>
-                </a>
-                <p>
-                    Developed a specialized platform for Microfinance Institutions to manage 
-                    client credit records, loan approvals, and repayments efficiently. Features 
-                    include reporting dashboards, automated analytics, and secure data storage.
-                </p>
-            </div>
-            <div className="project">
-                <a href="https://cricketscorecardravikumaradem.vercel.app/" target="_blank" rel="noreferrer">
-                    <img src={CricketScorecardThumbnail} className="zoom" alt="Cricket Scorecard thumbnail" width="100%" height="300" />
-                </a>
-                <a href="https://cricketscorecardravikumaradem.vercel.app/" target="_blank" rel="noreferrer">
-                    <h2>Cricket Scorecard App</h2>
-                </a>
-                <p>
-                    Developed a real-time cricket scorecard application that tracks live match scores, 
-                    player stats, and match summaries. Built using React for the frontend and Node.js for 
-                    backend API integration with live cricket data.
-                </p>
-            </div>
-            <div className="project">
                 <a href="https://e-kart-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
                     <img src={ecart} className="zoom" alt="Ecart thumbnail" width="100%" height="300" />
                 </a>
