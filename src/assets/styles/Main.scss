@@ -1,5 +1,31 @@
+#banner {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+#banner .container {
+  position: relative;
+  z-index: 1;
+}
+
+#canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .dark-mode .about-section {
     background-color: rgba(0, 0, 0, 0.2);
+    // margin: 0;
+    // background: linear-gradient(#0000, #0010ff33),
+    //     radial-gradient(circle, rgb(255, 15, 184) 0%, rgb(0, 0, 0) 100%);
 }
 
 .about-section {
