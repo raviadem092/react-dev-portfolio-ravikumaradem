@@ -2,6 +2,7 @@ import React from "react";
 import RecordentThumbnail from '../assets/images/recordent.png';
 import FlipYourCoin from '../assets/images/FlipYourCoin.png';
 import ecart from '../assets/images/ecart.png';
+import financeCalc from '../assets/images/interestDashboard.png'
 import makeANote from '../assets/images/makeANote.png';
 import '../assets/styles/Project.scss';
 
@@ -35,6 +36,18 @@ function Project() {
                     Developed a platform to digitize credit records and track loan histories for 
                     financial institutions. Built with React, Node.js, and MySQL, featuring 
                     analytics dashboards and real-time data insights.
+                </p>
+            </div>
+            <div className="project">
+                <a href="https://financecalculatorravikumaradem.vercel.app/" target="_blank" rel="noreferrer">
+                    <img src={financeCalc} className="zoom" alt="Finance Calculator thumbnail" width="100%" height="300" />
+                </a>
+                <a href="https://financecalculatorravikumaradem.vercel.app/" target="_blank" rel="noreferrer">
+                    <h2>Finance Calculator Dashboard</h2>
+                </a>
+                <p>
+                    A finance calculator dashboard offering EMI, loan, and savings calculations with real-time results.
+                    Includes PDF download functionality for exporting reports, built with a clean and user-friendly interface.
                 </p>
             </div>
             <div className="project">
