@@ -1,8 +1,8 @@
-# Developer Portfolio Template 🚀
+# Software Developer Portfolio 🚀
 
 ## Features
 
-✅ Open source (free to use, no attribution required)  
+✅ Open source (free to use)  
 ✅ Responsive design & mobile-friendly  
 ✅ Supports both dark and light modes  
 ✅ Highly customizable multi-component layout  
