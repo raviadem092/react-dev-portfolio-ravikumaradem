@@ -48,6 +48,13 @@ class Particle {
     if (this.y <= 0 || this.y >= this.height()) this.vy *= -1;
   }
 }
+  const words = [
+    "Software Engineer",
+    "Full Stack Developer",
+    "React & Node.js Developer",
+    "Building Scalable Web Applications",
+    "Open Source Enthusiast",
+  ];
 
 function Main(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -57,14 +64,6 @@ function Main(): JSX.Element {
 
   const CURSOR_RADIUS = 100;
   const PARTICLE_COUNT = 150;
-
-  const words = [
-    "Software Engineer",
-    "Full Stack Developer",
-    "React & Node.js Developer",
-    "Building Scalable Web Applications",
-    "Open Source Enthusiast",
-  ];
 
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
