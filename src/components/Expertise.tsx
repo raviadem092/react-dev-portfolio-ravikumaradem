@@ -12,21 +12,22 @@ import {
   faHtml5,
   faCss3Alt,
   faJs,
+  faDocker,
 } from "@fortawesome/free-brands-svg-icons";
 import Chip from "@mui/material/Chip";
 import "../assets/styles/Expertise.scss";
 
 const frontendLabels = [
-  "Angular", "React.js", "JavaScript", "TypeScript",
-  "HTML5", "CSS3", "Bootstrap", "Responsive UI"
+  "React.js", "Angular", "Next.js", "JavaScript", "TypeScript",
+  "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Responsive UI"
 ];
 
 const backendLabels = [
-  "Node.js", "Express.js", "Java", "REST APIs", "MySQL"
+  "Node.js", "Express.js", "Java", "REST APIs", "MySQL", "PostgreSQL"
 ];
 
 const devopsLabels = [
-  "Git", "Maven", "Postman", "Azure Fundamentals"
+  "Git", "Maven", "Postman", "Azure", "Azure DevOps", "Docker"
 ];
 
 function Expertise() {
@@ -66,7 +67,7 @@ function Expertise() {
             <h3>Backend Development</h3>
             <p>
               I develop efficient and secure backend applications using Node.js and Java,
-              building REST APIs and integrating databases like MySQL.
+              building REST APIs and integrating databases like MySQL .
             </p>
             <div className="flex-chips">
               <span className="chip-title">Tech stack:</span>
@@ -98,6 +99,8 @@ function Expertise() {
             <div className="brand-icons">
               <FontAwesomeIcon icon={faGit} />
               <FontAwesomeIcon icon={faMicrosoft} />
+              <FontAwesomeIcon icon={faSquareGithub} />
+              <FontAwesomeIcon icon={faDocker} />
             </div>
           </div>
 

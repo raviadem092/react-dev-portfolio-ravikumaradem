@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import "../assets/styles/Main.scss";
-import ravikumaryadavadem from "../assets/images/ravikumaryadavadem.jpg";
+import ravikumaradem from "../assets/images/ravikumaradem.jpeg";
+
 
 type CursorPosition = [number, number];
 
@@ -56,6 +57,44 @@ function Main(): JSX.Element {
 
   const CURSOR_RADIUS = 100;
   const PARTICLE_COUNT = 150;
+
+  const words = [
+    "Software Engineer",
+    "Full Stack Developer",
+    "React & Node.js Developer",
+    "Building Scalable Web Applications",
+    "Open Source Enthusiast",
+  ];
+
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  useEffect(() => {
+  const currentWord = words[wordIndex];
+
+  const typingSpeed = isDeleting ? 60 : 120;
+
+  const timer = setTimeout(() => {
+    if (!isDeleting) {
+      const next = currentWord.substring(0, text.length + 1);
+      setText(next);
+
+      if (next === currentWord) {
+        setTimeout(() => setIsDeleting(true), 1500);
+      }
+    } else {
+      const next = currentWord.substring(0, text.length - 1);
+      setText(next);
+
+      if (next === "") {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % words.length);
+      }
+    }
+  }, typingSpeed);
+
+  return () => clearTimeout(timer);
+}, [text, isDeleting, wordIndex]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -147,7 +186,7 @@ function Main(): JSX.Element {
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div className="about-section">
           <div className="image-wrapper">
-            <img src={ravikumaryadavadem} alt="Avatar" />
+            <img src={ravikumaradem} alt="Avatar" />
           </div>
 
           <div className="content">
@@ -169,7 +208,10 @@ function Main(): JSX.Element {
             </div>
 
             <h1>Ravi Kumar Yadav</h1>
-            <p>Software Engineer</p>
+            <p className="typewriter">
+              {text}
+              <span className="cursor">|</span>
+            </p>
 
             <div className="mobile_social_icons">
               <a

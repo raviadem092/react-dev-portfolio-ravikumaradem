@@ -1,38 +1,103 @@
-.vertical-timeline span {
-    color: white;
-    font-family: 'Courier Prime', monospace;
+.timeline-wrapper {
+  padding: 3rem 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.vertical-timeline p {
-    color: rgb(39, 40, 34);
+.timeline-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 3rem;
+  letter-spacing: -0.5px;
 }
 
-.vertical-timeline-element p {
-    color: rgb(39, 40, 34);
+/* Card spacing refinement */
+.vertical-timeline-element-content {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.vertical-timeline-element h3 {
-    color: rgb(39, 40, 34);
+.vertical-timeline-element-content:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12) !important;
 }
 
-.vertical-timeline-element h4 {
-    color: rgb(39, 40, 34);
+/* Role text */
+.timeline-role {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
 }
 
-.vertical-timeline-element span {
-    color: rgb(39, 40, 34);
+.timeline-location {
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
 }
 
-.vertical-timeline-element .vertical-timeline-element-date {
-    color: white;
+/* Chips */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.timeline-date {
+  color: #64748b !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
-.svg-inline--fa {
-    color: white;
+/* optional dark mode */
+@media (prefers-color-scheme: dark) {
+  .timeline-date {
+    color: #cbd5e1 !important;
+  }
 }
 
-@media screen and (max-width: 1170px) {
-    .vertical-timeline-element .vertical-timeline-element-date {
-        color: rgb(39, 40, 34);
-    }
+.tech-chip {
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.6) !important;
+  font-weight: 500 !important;
+}
+
+/* Icons row */
+.icon-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tech-icon {
+  font-size: 1.4rem;
+  opacity: 0.9;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.tech-icon:hover {
+  transform: scale(1.15);
+  opacity: 1;
+}
+
+/* Date styling */
+.vertical-timeline-element-date {
+  color: #64748b !important;
+  font-weight: 500;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .timeline-title {
+    font-size: 1.6rem;
+  }
+
+  .vertical-timeline-element-date {
+    font-size: 0.85rem !important;
+  }
+
+  .timeline-role {
+    font-size: 1.1rem;
+  }
 }
