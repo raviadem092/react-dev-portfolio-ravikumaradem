@@ -10,7 +10,7 @@ import {
 } from "./components";
 import FadeIn from './components/FadeIn';
 import './index.scss';
-
+import ChatBot from "./components/chatbot";
 function App() {
     const [mode, setMode] = useState<string>('dark');
 
@@ -37,6 +37,7 @@ function App() {
             <Contact/>
         </FadeIn>
         <Footer />
+        <ChatBot />
     </div>
     );
 }
