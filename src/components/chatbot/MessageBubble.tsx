@@ -28,22 +28,28 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                 {isUser ? (
                     <p>{message.content}</p>
                 ) : (
-                    <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                            a: ({ children, ...props }) => (
-                                <a
-                                    {...props}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {children}
-                                </a>
-                            ),
-                        }}
-                    >
-                        {message.content}
-                    </ReactMarkdown>
+                    <>
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                                a: ({ children, ...props }) => (
+                                    <a
+                                        {...props}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {children}
+                                    </a>
+                                ),
+                            }}
+                        >
+                            {message.content}
+                        </ReactMarkdown>
+
+                        {message.isStreaming && (
+                            <span className="ai-cursor" />
+                        )}
+                    </>
                 )}
             </div>
         </div>

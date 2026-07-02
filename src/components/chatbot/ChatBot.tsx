@@ -166,6 +166,7 @@ const ChatBot: React.FC = () => {
                     sender: "assistant",
                     content: "",
                     createdAt: new Date().toISOString(),
+                    isStreaming: true,
                 },
             ]);
 
@@ -179,6 +180,7 @@ const ChatBot: React.FC = () => {
                                 ? {
                                       ...message,
                                       content: partialText,
+                                      isStreaming: true,
                                   }
                                 : message
                         )
@@ -186,6 +188,16 @@ const ChatBot: React.FC = () => {
 
                 },
                 STREAM_SPEED
+            );
+            setMessages((prev) =>
+                prev.map((message) =>
+                    message.id === assistantId
+                        ? {
+                            ...message,
+                            isStreaming: false,
+                        }
+                        : message
+                )
             );
 
         } catch (error) {

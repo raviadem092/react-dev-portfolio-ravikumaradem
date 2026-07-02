@@ -566,6 +566,42 @@
     }
 }
 
+/* ==========================================
+   AI Cursor
+========================================== */
+
+.ai-cursor {
+
+    display: inline-block;
+
+    width: 2px;
+
+    height: 1em;
+
+    margin-left: 2px;
+
+    background-color: var(--chat-primary);
+
+    animation: aiCursorBlink 1s infinite;
+
+    vertical-align: text-bottom;
+
+}
+
+@keyframes aiCursorBlink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+
+}
+
 /* ===========================================
    Responsive
 =========================================== */

@@ -5,6 +5,7 @@ export interface ChatMessage {
     sender: Sender;
     content: string;
     createdAt: string;
+    isStreaming?: boolean;
 }
 
 export interface ChatRequest {
