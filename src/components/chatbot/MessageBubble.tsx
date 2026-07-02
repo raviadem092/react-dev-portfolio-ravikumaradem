@@ -9,6 +9,7 @@ interface MessageBubbleProps {
 }
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
+
     const isUser = message.sender === "user";
 
     return (
@@ -19,21 +20,25 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
         >
             <div
                 className={`message-bubble ${
-                    isUser ? "user-bubble" : "assistant-bubble"
+                    isUser
+                        ? "user-bubble"
+                        : "assistant-bubble"
                 }`}
             >
                 {isUser ? (
-                    message.content
+                    <p>{message.content}</p>
                 ) : (
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
-                            a: ({ ...props }) => (
+                            a: ({ children, ...props }) => (
                                 <a
                                     {...props}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                />
+                                >
+                                    {children}
+                                </a>
                             ),
                         }}
                     >

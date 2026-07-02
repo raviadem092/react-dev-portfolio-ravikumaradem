@@ -20,3 +20,13 @@ export interface SuggestedQuestionsResponse {
     success: boolean;
     data: string[];
 }
+
+export interface ChatHistory {
+    role: "user" | "assistant";
+    content: string;
+}
+
+export interface ChatRequest {
+    message: string;
+    history: ChatHistory[];
+}

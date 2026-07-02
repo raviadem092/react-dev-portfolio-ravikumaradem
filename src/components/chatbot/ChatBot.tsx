@@ -4,21 +4,46 @@ import ChatButton from "./ChatButton";
 import ChatWindow from "./ChatWindow";
 import ChatService from "./chat.service";
 
-import { ChatMessage } from "./chat.types";
+import { ChatHistory, ChatMessage } from "./chat.types";
 
 import "../../assets/styles/ChatBot.scss";
+import { streamText } from "./utils/streamText";
+
+const MAX_HISTORY_MESSAGES = 6;
+const STREAM_SPEED = 12;
 
 const INITIAL_MESSAGES: ChatMessage[] = [
     {
         id: "welcome",
         sender: "assistant",
         content:
-            "👋 Hi! I'm Ravi's Assit. Ask me anything about Ravi's experience, projects, skills, or professional background.",
+            "👋 Welcome! I'm Ask Ravi, your AI assistant. Ask me anything about Ravi's experience, projects, skills, or professional background.",
         createdAt: new Date().toISOString(),
     },
 ];
 
+const buildConversationHistory = (
+    currentMessages: ChatMessage[]
+): ChatHistory[] => {
+
+    return currentMessages
+        .filter(
+            (message) =>
+                message.id !== "welcome" &&
+                message.content.trim().length > 0
+        )
+        .slice(-MAX_HISTORY_MESSAGES)
+        .map((message) => ({
+            role:
+                message.sender === "assistant"
+                    ? "assistant"
+                    : "user",
+            content: message.content,
+        }));
+};
+
 const ChatBot: React.FC = () => {
+
     const [isOpen, setIsOpen] = useState(false);
 
     const [loading, setLoading] = useState(false);
@@ -35,27 +60,55 @@ const ChatBot: React.FC = () => {
     };
 
     /**
-     * Load suggested questions
+     * Load Suggested Questions
      */
     useEffect(() => {
+
         const loadQuestions = async () => {
+
             try {
+
                 const response =
                     await ChatService.getSuggestedQuestions();
 
                 if (response.success) {
                     setQuestions(response.data);
                 }
+
             } catch (error) {
-                console.error(error);
+
+                console.error(
+                    "Failed to load suggested questions:",
+                    error
+                );
+
             }
+
         };
 
         loadQuestions();
+
     }, []);
 
     /**
-     * Send message to backend
+     * Append assistant error message
+     */
+    const appendErrorMessage = (message: string) => {
+
+        setMessages((prev) => [
+            ...prev,
+            {
+                id: crypto.randomUUID(),
+                sender: "assistant",
+                content: message,
+                createdAt: new Date().toISOString(),
+            },
+        ]);
+
+    };
+
+    /**
+     * Send Message
      */
     const sendMessage = async (text?: string) => {
 
@@ -72,59 +125,102 @@ const ChatBot: React.FC = () => {
             createdAt: new Date().toISOString(),
         };
 
-        setMessages((prev) => [...prev, userMessage]);
+        const history = buildConversationHistory([
+            ...messages,
+            userMessage,
+        ]);
 
         setInput("");
+
+        setMessages((prev) => [
+            ...prev,
+            userMessage,
+        ]);
 
         setLoading(true);
 
         try {
 
             const response =
-                await ChatService.sendMessage(question);
+                await ChatService.sendMessage(
+                    question,
+                    history
+                );
 
-            if (response.success) {
+            if (!response.success) {
 
-                const assistantMessage: ChatMessage = {
-                    id: crypto.randomUUID(),
-                    sender: "assistant",
-                    content: response.answer,
-                    createdAt: new Date().toISOString(),
-                };
+                appendErrorMessage(
+                    "Sorry, I couldn't process your request."
+                );
 
-                setMessages((prev) => [
-                    ...prev,
-                    assistantMessage,
-                ]);
+                return;
+
             }
 
-        } catch (error) {
-
-            const errorMessage: ChatMessage = {
-                id: crypto.randomUUID(),
-                sender: "assistant",
-                content: "Sorry, something went wrong. Please try again.",
-                createdAt: new Date().toISOString(),
-            };
+            const assistantId = crypto.randomUUID();
 
             setMessages((prev) => [
                 ...prev,
-                errorMessage,
+                {
+                    id: assistantId,
+                    sender: "assistant",
+                    content: "",
+                    createdAt: new Date().toISOString(),
+                },
             ]);
-            console.error(error);
+
+            await streamText(
+                response.answer,
+                (partialText) => {
+
+                    setMessages((prev) =>
+                        prev.map((message) =>
+                            message.id === assistantId
+                                ? {
+                                      ...message,
+                                      content: partialText,
+                                  }
+                                : message
+                        )
+                    );
+
+                },
+                STREAM_SPEED
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Failed to send message:",
+                error
+            );
+
+            let errorMessage =
+                "Sorry, something went wrong. Please try again.";
+
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+
+            appendErrorMessage(errorMessage);
 
         } finally {
 
             setLoading(false);
 
         }
+
     };
 
     /**
-     * Suggested question clicked
+     * Suggested Question Click
      */
-    const handleQuestionClick = (question: string) => {
+    const handleQuestionClick = (
+        question: string
+    ) => {
+
         sendMessage(question);
+
     };
 
     return (
