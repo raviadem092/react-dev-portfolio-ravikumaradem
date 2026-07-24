@@ -1,83 +1,118 @@
 import React from "react";
-import RecordentThumbnail from '../assets/images/recordent.png';
-import FlipYourCoin from '../assets/images/FlipYourCoin.png';
-import ecart from '../assets/images/ecart.png';
-import financeCalc from '../assets/images/interestDashboard.png'
-import makeANote from '../assets/images/makeANote.png';
-import '../assets/styles/Project.scss';
+import RecordentThumbnail from "../assets/images/recordent.png";
+import FlipYourCoin from "../assets/images/FlipYourCoin.png";
+import ecart from "../assets/images/ecart.png";
+import financeCalc from "../assets/images/interestDashboard.png";
+import makeANote from "../assets/images/makeANote.png";
+import "../assets/styles/Project.scss";
 
 function Project() {
-    return(
-    <div className="projects-container" id="projects">
-        <h1>Projects</h1>
-        <div className="projects-grid">
-            <div className="project">
-                <a href="https://makeyourcall.vercel.app/" target="_blank" rel="noreferrer">
-                    <img src={FlipYourCoin} className="zoom" alt="thumbnail" width="100%" height="300"/>
-                </a>
-                <a href="https://makeyourcall.vercel.app/" target="_blank" rel="noreferrer">
-                    <h2>Make Your Call</h2>
-                </a>
-                <p>
-                    Developed a virtual coin flip app that records the last 10 tosses and provides
-                    a statistics & analytics view. Built with React and JavaScript for interactive
-                    user experience.
-                </p>
+    const projects = [
+        {
+            title: "Recordent",
+            image: RecordentThumbnail,
+            liveUrl: "https://recordent.com",
+            technologies: ["React", "Node.js", "MySQL"],
+            description:
+                "Contributed to a full-stack financial data platform focused on digitizing credit records and managing loan-related information. Worked across React-based dashboards, backend services, database-driven workflows, and analytics features to support financial data management and reporting.",
+        },
+        {
+            title: "Finance Calculator Dashboard",
+            image: financeCalc,
+            liveUrl: "https://financecalculatorravikumaradem.vercel.app/",
+            technologies: [
+                "React",
+                "JavaScript",
+                "Financial Logic",
+                "PDF Export",
+            ],
+            description:
+                "Built an interactive financial calculator dashboard for EMI, loan, and savings calculations. Implemented real-time calculation workflows and PDF report generation, providing users with a simple interface for analyzing and exporting financial results.",
+        },
+        {
+            title: "E-Kart",
+            image: ecart,
+            liveUrl: "https://e-kart-ravikumaradem.vercel.app/",
+            technologies: ["React", "JavaScript", "E-Commerce"],
+            description:
+                "Developed an e-commerce application focused on product browsing, shopping workflows, and order management. Designed reusable frontend components and implemented application flows to provide a responsive and user-friendly online shopping experience.",
+        },
+        {
+            title: "Make A Note",
+            image: makeANote,
+            liveUrl: "https://make-a-note-ravikumaradem.vercel.app/",
+            technologies: ["React", "JavaScript", "CRUD"],
+            description:
+                "Built a lightweight note-taking application with essential create, edit, and delete functionality. Focused on a minimal interface and straightforward user experience for fast and distraction-free note management.",
+        },
+        {
+            title: "Make Your Call",
+            image: FlipYourCoin,
+            liveUrl: "https://makeyourcall.vercel.app/",
+            technologies: ["React", "JavaScript", "Analytics"],
+            description:
+                "Developed an interactive virtual coin-flip application that maintains the latest toss history and provides statistics and analytics based on user activity. Built with React and JavaScript with a focus on interactive UI and real-time state management.",
+        },
+    ];
+
+    return (
+        <section className="projects-container" id="projects">
+            <h1>Projects</h1>
+
+            <div className="projects-grid">
+                {projects.map((project, index) => (
+                    <div className="project" key={index}>
+                        <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <img
+                                src={project.image}
+                                className="zoom"
+                                alt={`${project.title} project thumbnail`}
+                                width="100%"
+                                height="300"
+                            />
+                        </a>
+
+                        <div className="project-content">
+                            <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <h2>{project.title}</h2>
+                            </a>
+
+                            <div className="project-technologies">
+                                {project.technologies.map(
+                                    (technology, techIndex) => (
+                                        <span
+                                            key={techIndex}
+                                            className="technology-tag"
+                                        >
+                                            {technology}
+                                        </span>
+                                    )
+                                )}
+                            </div>
+
+                            <p>{project.description}</p>
+
+                            <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="project-link"
+                            >
+                                View Project →
+                            </a>
+                        </div>
+                    </div>
+                ))}
             </div>
-            {/* Recordent Project */}
-            <div className="project">
-                <a href="https://recordent.com" target="_blank" rel="noreferrer">
-                    <img src={RecordentThumbnail} className="zoom" alt="Recordent thumbnail" width="100%" height="300" />
-                </a>
-                <a href="https://recordent.com" target="_blank" rel="noreferrer">
-                    <h2>Recordent</h2>
-                </a>
-                <p>
-                    Developed a platform to digitize credit records and track loan histories for 
-                    financial institutions. Built with React, Node.js, and MySQL, featuring 
-                    analytics dashboards and real-time data insights.
-                </p>
-            </div>
-            <div className="project">
-                <a href="https://financecalculatorravikumaradem.vercel.app/" target="_blank" rel="noreferrer">
-                    <img src={financeCalc} className="zoom" alt="Finance Calculator thumbnail" width="100%" height="300" />
-                </a>
-                <a href="https://financecalculatorravikumaradem.vercel.app/" target="_blank" rel="noreferrer">
-                    <h2>Finance Calculator Dashboard</h2>
-                </a>
-                <p>
-                    A finance calculator dashboard offering EMI, loan, and savings calculations with real-time results.
-                    Includes PDF download functionality for exporting reports, built with a clean and user-friendly interface.
-                </p>
-            </div>
-            <div className="project">
-                <a href="https://e-kart-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
-                    <img src={ecart} className="zoom" alt="Ecart thumbnail" width="100%" height="300" />
-                </a>
-                <a href="https://e-kart-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
-                    <h2>E-Kart</h2>
-                </a>
-                <p>
-                    Developed an e-commerce platform for online shopping and product management. 
-                    Features include user authentication, secure payment processing, and 
-                    real-time order tracking.
-                </p>
-            </div>
-            <div className="project">
-                <a href="https://make-a-note-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
-                    <img src={makeANote} className="zoom" alt="Make a Note thumbnail" width="100%" height="300" />
-                </a>
-                <a href="https://make-a-note-ravikumaradem.vercel.app//" target="_blank" rel="noreferrer">
-                    <h2>Make A Note</h2>
-                </a>
-                <p>
-                    A lightweight web-based note-taking app to quickly jot down and manage text notes.
-                    Bare-bones interface with essential add/edit/delete functionality, no fluff or accounts.
-                    Simple personal tool, built for fast, distraction-free note capture.
-                </p>
-            </div>
-        </div>
-    </div>
+        </section>
     );
 }
 
