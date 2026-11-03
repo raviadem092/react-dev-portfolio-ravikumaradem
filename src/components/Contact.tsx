@@ -3,6 +3,9 @@ import '../assets/styles/Contact.scss';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import ScrollReveal from './ScrollReveal';
 import TextField from '@mui/material/TextField';
 import { useForm, ValidationError } from '@formspree/react';
 
@@ -96,13 +99,22 @@ function Contact() {
   };
 
   return (
-    <div id="contact">
+    <section id="contact" aria-labelledby="contact-title">
       <div className="items-container">
-        <div className="contact_wrapper">
-          <h1>Contact Me</h1>
-          <p>
-            Got a project waiting to be realized? Let's collaborate and make it happen!
-          </p>
+        <ScrollReveal>
+        <div className="contact-layout">
+          <div className="contact-intro" data-reveal>
+            <p className="section-eyebrow">Let's connect</p>
+            <h1 id="contact-title">Have a system worth building?</h1>
+            <p>Whether you are modernizing cloud workloads, shaping a backend service, or creating a thoughtful web experience, I would love to hear about it.</p>
+            <div className="contact-points">
+              <div><RocketLaunchOutlinedIcon /><span><strong>Cloud-native delivery</strong>AWS, Azure, Docker, Terraform, and CI/CD automation.</span></div>
+              <div><AutoAwesomeOutlinedIcon /><span><strong>Product engineering</strong>Backend services, databases, and responsive interfaces.</span></div>
+            </div>
+          </div>
+          <div className="contact_wrapper" data-reveal>
+          <h2>Send a message</h2>
+          <p className="contact-form-intro">Tell me a little about the problem you are solving.</p>
 
           {state.succeeded && (
             <p className="thank-you-message">
@@ -186,9 +198,11 @@ function Contact() {
               Send
             </Button>
           </Box>
+          </div>
         </div>
+        </ScrollReveal>
       </div>
-    </div>
+    </section>
   );
 }
 

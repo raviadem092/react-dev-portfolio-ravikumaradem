@@ -1,119 +1,63 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faReact,
-  faNodeJs,
-  faAngular,
-  faJs,
-  faCss3Alt,
-  faMicrosoft,
-  faDocker,
-} from "@fortawesome/free-brands-svg-icons";
+import { faAngular, faAws, faDocker, faNodeJs, faReact } from "@fortawesome/free-brands-svg-icons";
+import ScrollReveal from "./ScrollReveal";
+import "../assets/styles/Timeline.scss";
 
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
-
-import "react-vertical-timeline-component/style.min.css";
-import Chip from "@mui/material/Chip";
-
-const theme = {
-  text: "#1f2937",
-  muted: "#6b7280",
-  cardBg: "#ffffff",
-  border: "#e5e7eb",
-};
-
-const timelineData = [
+const experience = [
   {
-    title: "Full Stack Software Developer",
-    subtitle: "Hyderabad, India",
-    date: "2025 - Present",
-    techIcons: [faNodeJs, faAngular, faMicrosoft, faDocker],
-    techLabels: ["Angular", "Node.js", "MySQL", "Azure"],
-    color: "#2563eb",
+    period: "2025 — Present",
+    role: "Full Stack Software Developer",
+    focus: "Cloud-native platform engineering",
+    summary: "Building and modernizing cloud-native solutions across AWS and Azure, with an emphasis on dependable services, delivery automation, and maintainable foundations.",
+    bullets: ["Hands-on experience supporting workloads across Azure and AWS.", "Building backend service workflows and database-driven integrations for production applications.", "Containerizing services and automating cloud infrastructure and deployments with Terraform and GitHub Actions."],
+    stack: ["AWS", "Azure", "Docker", "Amazon ECS", "Terraform", "GitHub Actions", "Databases"],
+    icons: [faAws, faDocker, faNodeJs],
   },
   {
-    title: "Staff Engineer Intern",
-    subtitle: "Hyderabad, India",
-    date: "2024 - 2025",
-    techIcons: [faNodeJs, faAngular, faReact, faJs],
-    techLabels: ["Angular", "React Native", "Node.js", "JavaScript"],
-    color: "#f59e0b",
+    period: "2024 — 2025",
+    role: "Staff Engineer Intern",
+    focus: "Product engineering",
+    summary: "Contributed to full-stack product delivery across web and mobile-facing experiences.",
+    bullets: ["Built and maintained features across Angular, React Native, Node.js, and JavaScript.", "Worked across application layers to turn product requirements into maintainable releases."],
+    stack: ["Angular", "React Native", "Node.js", "JavaScript"],
+    icons: [faAngular, faReact, faNodeJs],
   },
   {
-    title: "Frontend Developer Freelancer",
-    subtitle: "Hyderabad, India",
-    date: "2023",
-    techIcons: [faReact, faCss3Alt, faJs],
-    techLabels: ["HTML5", "CSS3", "JavaScript", "React"],
-    color: "#10b981",
+    period: "2023",
+    role: "Frontend Developer · Freelancer",
+    focus: "Web application development",
+    summary: "Delivered responsive, user-focused web interfaces for independent projects.",
+    bullets: ["Created clean interfaces and interactive flows using React, JavaScript, HTML, and CSS."],
+    stack: ["React", "JavaScript", "HTML5", "CSS3"],
+    icons: [faReact],
   },
 ];
 
 function Timeline() {
-  return (
-    <div id="history" className="timeline-wrapper">
-      <h1 className="timeline-title" style={{ textAlign: "center"}}>Career History</h1>
-
-      <VerticalTimeline lineColor="#e5e7eb">
-        {timelineData.map((item, index) => (
-        <VerticalTimelineElement
-          key={index}
-          date={item.date}
-          dateClassName="timeline-date"
-          iconStyle={{ background: item.color, color: "#fff" }}
-          icon={<FontAwesomeIcon icon={item.techIcons[0]} />}
-          contentStyle={{
-            background: theme.cardBg,
-            borderTop: `3px solid ${item.color}`,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-            borderRadius: "12px",
-          }}
-          contentArrowStyle={{
-            borderRight: `7px solid ${theme.cardBg}`,
-          }}
-        >
-            <h3 className="timeline-role" style={{ color: theme.text }}>
-              {item.title}
-            </h3>
-
-            <h4 className="timeline-location" style={{ color: theme.muted }}>
-              {item.subtitle}
-            </h4>
-
-            {/* Chips */}
-            <div className="chip-row">
-              {item.techLabels.map((label, i) => (
-                <Chip
-                  key={i}
-                  label={label}
-                  size="small"
-                  className="tech-chip"
-                  style={{
-                    borderColor: item.color,
-                    color: item.color,
-                  }}
-                />
-              ))}
+  return <section id="history" className="experience-section" aria-labelledby="experience-title">
+    <ScrollReveal className="experience-shell">
+      <div className="section-heading experience-heading" data-reveal>
+        <p className="section-eyebrow">Experience</p>
+        <h1 id="experience-title">Engineering systems that keep moving.</h1>
+        <p className="section-intro">A career path spanning full-stack product work, backend services, cloud infrastructure, and dependable delivery.</p>
+      </div>
+      <div className="experience-list">
+        {experience.map((item, index) => <article className="experience-card" key={item.role} data-reveal>
+          <div className="experience-card__rail"><span>{String(index + 1).padStart(2, "0")}</span><i /></div>
+          <div className="experience-card__main">
+            <div className="experience-card__meta"><p>{item.period}</p><span>{item.focus}</span></div>
+            <h2>{item.role}</h2>
+            <p className="experience-card__summary">{item.summary}</p>
+            <ul>{item.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>
+            <div className="experience-card__footer">
+              <div className="tech-chip-row">{item.stack.map((technology) => <span className="tech-chip" key={technology}>{technology}</span>)}</div>
+              <div className="experience-icons" aria-hidden="true">{item.icons.map((icon, iconIndex) => <FontAwesomeIcon icon={icon} key={iconIndex} />)}</div>
             </div>
-
-            {/* Icons */}
-            <div className="icon-row">
-              {item.techIcons.map((icon, i) => (
-                <FontAwesomeIcon
-                  key={i}
-                  icon={icon}
-                  className="tech-icon"
-                  style={{ color: item.color }}
-                />
-              ))}
-            </div>
-          </VerticalTimelineElement>
-        ))}
-      </VerticalTimeline>
-    </div>
-  );
+          </div>
+        </article>)}
+      </div>
+    </ScrollReveal>
+  </section>;
 }
 
 export default Timeline;

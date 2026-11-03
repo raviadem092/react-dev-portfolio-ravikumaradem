@@ -13,6 +13,7 @@ import './index.scss';
 import ChatBot from "./components/chatbot";
 function App() {
     const [mode, setMode] = useState<string>('dark');
+    const [chatRequest, setChatRequest] = useState<{ id: number; text: string } | null>(null);
 
     const handleModeChange = () => {
         if (mode === 'dark') {
@@ -26,18 +27,23 @@ function App() {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
       }, []);
 
+    const askRavi = (text: string) => {
+      const question = text.trim();
+      if (question) setChatRequest({ id: Date.now(), text: question });
+    };
+
     return (
     <div className={`main-container ${mode === 'dark' ? 'dark-mode' : 'light-mode'}`}>
         <Navigation parentToChild={{mode}} modeChange={handleModeChange}/>
         <FadeIn transitionDuration={700}>
-            <Main/>
+            <Main onAsk={askRavi}/>
             <Expertise/>
             <Timeline/>
             <Project/>
             <Contact/>
+            <Footer />
         </FadeIn>
-        <Footer />
-        <ChatBot />
+        <ChatBot chatRequest={chatRequest} onRequestHandled={() => setChatRequest(null)} />
     </div>
     );
 }

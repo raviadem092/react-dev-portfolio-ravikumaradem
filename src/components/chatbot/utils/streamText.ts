@@ -1,7 +1,8 @@
 export const streamText = (
     text: string,
     onUpdate: (value: string) => void,
-    speed = 15
+    speed = 15,
+    signal?: AbortSignal
 ): Promise<void> => {
 
     return new Promise((resolve) => {
@@ -9,6 +10,12 @@ export const streamText = (
         let index = 0;
 
         const interval = setInterval(() => {
+
+            if (signal?.aborted) {
+                clearInterval(interval);
+                resolve();
+                return;
+            }
 
             index++;
 

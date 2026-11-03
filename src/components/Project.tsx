@@ -1,4 +1,6 @@
 import React from "react";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import ScrollReveal from "./ScrollReveal";
 import RecordentThumbnail from "../assets/images/recordent.png";
 import FlipYourCoin from "../assets/images/FlipYourCoin.png";
 import ecart from "../assets/images/ecart.png";
@@ -6,8 +8,13 @@ import financeCalc from "../assets/images/interestDashboard.png";
 import makeANote from "../assets/images/makeANote.png";
 import "../assets/styles/Project.scss";
 
-function Project() {
-    const projects = [
+const projects = [
+        {
+            title: "Cloud-Native Platform Engineering",
+            technologies: ["AWS", "Azure", "Docker", "Amazon ECS", "Terraform", "GitHub Actions", "Backend", "Databases"],
+            description: "Cloud-native engineering across AWS and Azure: building containerized services, backend and database integrations, infrastructure as code, and automated delivery pipelines. Amazon ECS is one part of a broader scalable deployment approach.",
+            featured: true,
+        },
         {
             title: "Recordent",
             image: RecordentThumbnail,
@@ -53,65 +60,55 @@ function Project() {
             description:
                 "Developed an interactive virtual coin-flip application that maintains the latest toss history and provides statistics and analytics based on user activity. Built with React and JavaScript with a focus on interactive UI and real-time state management.",
         },
-    ];
+];
 
+function Project() {
     return (
-        <section className="projects-container" id="projects">
-            <h1>Projects</h1>
+        <section className="projects-container" id="projects" aria-labelledby="projects-title">
+            <ScrollReveal>
+            <div className="section-heading projects-heading" data-reveal>
+                <p className="section-eyebrow">Selected work</p>
+                <h1 id="projects-title">Projects with purpose.</h1>
+                <p className="section-intro">A blend of cloud platform work, product engineering, and practical applications.</p>
+            </div>
 
             <div className="projects-grid">
-                {projects.map((project, index) => (
-                    <div className="project" key={index}>
-                        <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <img
-                                src={project.image}
-                                className="zoom"
-                                alt={`${project.title} project thumbnail`}
-                                width="100%"
-                                height="300"
-                            />
-                        </a>
+                {projects.map((project) => (
+                    <article className={`project-card ${project.featured ? "project-card--featured" : ""}`} key={project.title} data-reveal>
+                        {project.image ? <a href={project.liveUrl} target="_blank" rel="noreferrer" className="project-image-link" aria-label={`Open ${project.title}`}>
+                            <img src={project.image} alt={`${project.title} project preview`} />
+                        </a> : <div className="project-featured-visual" aria-hidden="true">
+                            <span>Azure</span><i>+</i><strong>AWS</strong>
+                            <div className="project-featured-flow"><em>Cloud-native</em><em>Docker</em><em>Terraform</em><em>CI/CD</em></div>
+                        </div>}
 
-                        <div className="project-content">
-                            <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <h2>{project.title}</h2>
-                            </a>
+                        <div className="project-card__content">
+                            {project.featured && <span className="featured-label">Current focus</span>}
+                            <h2>{project.title}</h2>
 
-                            <div className="project-technologies">
+                            <div className="project-stack">
                                 {project.technologies.map(
                                     (technology, techIndex) => (
-                                        <span
-                                            key={techIndex}
-                                            className="technology-tag"
-                                        >
-                                            {technology}
-                                        </span>
+                                        <span key={techIndex}>{technology}</span>
                                     )
                                 )}
                             </div>
 
                             <p>{project.description}</p>
 
-                            <a
+                            {project.liveUrl && <a
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="project-link"
                             >
-                                View Project →
-                            </a>
+                                View project <ArrowOutwardIcon fontSize="small" />
+                            </a>}
                         </div>
-                    </div>
+                    </article>
                 ))}
             </div>
+            </ScrollReveal>
         </section>
     );
 }

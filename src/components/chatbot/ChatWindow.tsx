@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
@@ -25,6 +25,9 @@ interface ChatWindowProps {
     onSend: () => void;
 
     onQuestionClick: (question: string) => void;
+    onStop: () => void;
+    onCopy: (content: string) => void;
+    onClear: () => void;
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({
@@ -37,24 +40,41 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     onInputChange,
     onSend,
     onQuestionClick,
+    onStop,
+    onCopy,
+    onClear,
 }) => {
+
+    const isStreaming = messages.some((message) => message.isStreaming);
+    const [minimized, setMinimized] = useState(false);
+    const [maximized, setMaximized] = useState(false);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") onClose();
+        };
+        window.addEventListener("keydown", handleEscape);
+        return () => window.removeEventListener("keydown", handleEscape);
+    }, [isOpen, onClose]);
 
     if (!isOpen) {
         return null;
     }
 
     return (
-        <div className="chat-window">
+        <div className="chat-window" style={{ height: minimized ? "auto" : maximized ? "calc(100dvh - 32px)" : undefined, top: maximized ? 16 : undefined, bottom: maximized ? 16 : undefined, right: maximized ? 16 : undefined, width: maximized ? "calc(100vw - 32px)" : undefined, resize: maximized ? "none" : "both" }}>
 
-            <ChatHeader onClose={onClose} />
+            <ChatHeader onClose={onClose} onClear={onClear} onMinimize={() => setMinimized((value) => !value)} onMaximize={() => { setMaximized((value) => !value); setMinimized(false); }} minimized={minimized} maximized={maximized} />
 
-            <div className="chat-body">
+            {!minimized && <div className="chat-body">
 
                 <ChatMessages
                     messages={messages}
+                    onCopy={onCopy}
                 />
 
-                {loading && (
+                {loading && !isStreaming && (
                     <TypingIndicator />
                 )}
 
@@ -65,14 +85,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                     />
                 )}
 
-            </div>
+            </div>}
 
-            <ChatInput
+            {!minimized && <ChatInput
                 value={input}
                 loading={loading}
                 onChange={onInputChange}
-                onSend={onSend}
-            />
+                onSend={loading ? onStop : onSend}
+            />}
 
         </div>
     );
