@@ -9,18 +9,15 @@ const SuggestedQuestions: React.FC<SuggestedQuestionsProps> = ({
     questions,
     onQuestionClick,
 }) => {
-    if (questions.length === 0) {
-        return null;
-    }
+    const prompts = questions.length ? questions : ["What does Ravi specialize in?", "Tell me about his professional experience.", "What projects has he worked on?", "Which technologies does he use?", "Tell me about his software architecture experience.", "How can I contact Ravi?"];
 
     return (
         <div className="suggested-questions">
-            <p className="suggested-title">
-                Try asking:
-            </p>
+            <div className="welcome-copy"><h2>Hi! I'm Ravi's AI Assistant.</h2><p>Explore Ravi's professional journey, technical expertise, projects and engineering experience. Ask me anything!</p></div>
+            <p className="suggested-title">Explore:</p>
 
             <div className="suggested-list">
-                {questions.map((question) => (
+                {prompts.map((question) => (
                     <button
                         key={question}
                         type="button"

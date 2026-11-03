@@ -1,77 +1,28 @@
-import React, {
-    JSXElementConstructor,
-    PropsWithChildren,
-    useEffect,
-    useState,
-  } from "react";
-  
-  interface Props {
-    delay?: number;
-    transitionDuration?: number;
-    wrapperTag?: JSXElementConstructor<any>;
-    childTag?: JSXElementConstructor<any>;
-    className?: string;
-    childClassName?: string;
-    visible?: boolean;
-    onComplete?: () => any;
-  }
-  
-  export default function FadeIn(props: PropsWithChildren<Props>) {
-    const [maxIsVisible, setMaxIsVisible] = useState(0);
-    const transitionDuration = props.transitionDuration || 400;
-    const delay = props.delay || 50;
-    const WrapperTag = props.wrapperTag || "div";
-    const ChildTag = props.childTag || "div";
-    const visible = typeof props.visible === "undefined" ? true : props.visible;
-  
-    useEffect(() => {
-      let count = React.Children.count(props.children);
-      if (!visible) {
-        // Animate all children out
-        count = 0;
-      }
-  
-      if (count === maxIsVisible) {
-        // We're done updating maxVisible, notify when animation is done
-        const timeout = setTimeout(() => {
-          if (props.onComplete) props.onComplete();
-        }, transitionDuration);
-        return () => clearTimeout(timeout);
-      }
-  
-      // Move maxIsVisible toward count
-      const increment = count > maxIsVisible ? 1 : -1;
-      const timeout = setTimeout(() => {
-        setMaxIsVisible(maxIsVisible + increment);
-      }, delay);
-      return () => clearTimeout(timeout);
-      // eslint-disable-next-line
-    }, [
-      // eslint-disable-next-line
-      React.Children.count(props.children),
-      delay,
-      maxIsVisible,
-      visible,
-      transitionDuration,
-    ]);
-  
-    return (
-      <WrapperTag className={props.className}>
-        {React.Children.map(props.children, (child, i) => {
-          return (
-            <ChildTag
-              className={props.childClassName}
-              style={{
-                transition: `opacity ${transitionDuration}ms, transform ${transitionDuration}ms`,
-                transform: maxIsVisible > i ? "none" : "translateY(20px)",
-                opacity: maxIsVisible > i ? 1 : 0,
-              }}
-            >
-              {child}
-            </ChildTag>
-          );
-        })}
-      </WrapperTag>
-    );
-  }
-  
+import React, { PropsWithChildren, useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+interface Props { className?: string; childClassName?: string; transitionDuration?: number; delay?: number; }
+
+export default function FadeIn({ children, className, childClassName }: PropsWithChildren<Props>) {
+  const wrapper = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      gsap.utils.toArray<HTMLElement>(".page-section-reveal").forEach((section) => {
+        gsap.fromTo(section, { autoAlpha: 0, y: 32 }, {
+          autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out",
+          scrollTrigger: { trigger: section, start: "top 82%", once: true },
+        });
+      });
+    }, wrapper);
+    return () => context.revert();
+  }, []);
+
+  return <div ref={wrapper} className={className}>
+    {React.Children.map(children, (child, index) => <div className={`page-section-reveal ${childClassName || ""}`} key={index}>{child}</div>)}
+  </div>;
+}

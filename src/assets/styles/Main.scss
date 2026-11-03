@@ -159,6 +159,8 @@
   animation: blink 0.8s infinite;
 }
 
+.hero-ask { margin-top: 2rem; max-width: 540px; }.hero-ask label { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .09em; margin-bottom: .6rem; text-transform: uppercase; }.hero-ask__field { align-items: center; backdrop-filter: blur(12px); background: rgba(25,16,42,.64); border: 1px solid rgba(221,214,254,.32); border-radius: 14px; display: flex; padding: .35rem; }.hero-ask input { background: transparent; border: 0; color: #fff; flex: 1; font: inherit; min-width: 0; outline: none; padding: .65rem .8rem; }.hero-ask input::placeholder { color: #c4b5fd; }.hero-ask button,.hero-prompts button { background: #7c3aed; border: 0; border-radius: 10px; color: #fff; cursor: pointer; font: inherit; font-weight: 700; padding: .65rem .9rem; transition: transform .2s ease, background .2s ease; }.hero-ask button:hover:not(:disabled),.hero-prompts button:hover { background: #6d28d9; transform: translateY(-2px); }.hero-ask button:disabled { cursor: not-allowed; opacity: .55; }.hero-prompts { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: .8rem; }.hero-prompts button { background: rgba(196,181,253,.12); border: 1px solid rgba(196,181,253,.3); border-radius: 999px; color: #ede9fe; font-size: .82rem; padding: .42rem .75rem; }.light-mode .hero-ask__field { background: rgba(255,255,255,.72); border-color: rgba(109,40,217,.3); }.light-mode .hero-ask input { color: #24133e; }.light-mode .hero-ask input::placeholder { color: #7c6a93; }.light-mode .hero-prompts button { background: #f5f3ff; color: #5b21b6; }
+
 @keyframes blink {
   0%,
   50% {

@@ -5,17 +5,20 @@ import "../assets/styles/Main.scss";
 import ravikumaradem from "../assets/images/ravikumaradem.jpeg";
 
 const words = [
-  "Software Engineer",
-  "Full Stack Developer",
-  "React & Node.js Developer",
-  "Building Scalable Web Applications",
-  "Open Source Enthusiast",
+    "Full Stack Software Engineer",
+    "AWS & Azure Developer Associate",
+    "Backend & Database Specialist",
+    "Docker, Terraform & CI/CD Builder",
+    "Full Stack Solutions Architect",
 ];
 
-function Main(): JSX.Element {
+type MainProps = { onAsk: (question: string) => void };
+
+function Main({ onAsk }: MainProps): JSX.Element {
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [askInput, setAskInput] = useState("");
 
   useEffect(() => {
     const currentWord = words[wordIndex];
@@ -77,6 +80,16 @@ function Main(): JSX.Element {
               {text}
               <span className="cursor">|</span>
             </p>
+            <form className="hero-ask" onSubmit={(event) => { event.preventDefault(); onAsk(askInput); setAskInput(""); }}>
+              <label htmlFor="hero-ask-input">Ask Ravi about his work</label>
+              <div className="hero-ask__field">
+                <input id="hero-ask-input" value={askInput} onChange={(event) => setAskInput(event.target.value)} placeholder="Ask about cloud, projects, or skills..." />
+                <button type="submit" disabled={!askInput.trim()}>Ask <span aria-hidden="true">↗</span></button>
+              </div>
+            </form>
+            <div className="hero-prompts" aria-label="Suggested questions">
+              {["Cloud experience", "Featured projects", "Tech stack"].map((prompt) => <button key={prompt} type="button" onClick={() => onAsk(`Tell me about Ravi's ${prompt.toLowerCase()}.`)}>{prompt}</button>)}
+            </div>
 
             <div className="mobile_social_icons">
               <a

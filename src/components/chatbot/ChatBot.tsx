@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import ChatButton from "./ChatButton";
 import ChatWindow from "./ChatWindow";
@@ -42,7 +42,9 @@ const buildConversationHistory = (
         }));
 };
 
-const ChatBot: React.FC = () => {
+type ChatBotProps = { chatRequest: { id: number; text: string } | null; onRequestHandled: () => void };
+
+const ChatBot: React.FC<ChatBotProps> = ({ chatRequest, onRequestHandled }) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -54,10 +56,20 @@ const ChatBot: React.FC = () => {
 
     const [messages, setMessages] =
         useState<ChatMessage[]>(INITIAL_MESSAGES);
+    const streamController = useRef<AbortController | null>(null);
 
     const toggleChat = () => {
         setIsOpen((prev) => !prev);
     };
+
+    useEffect(() => {
+        const savedHistory = localStorage.getItem("ask-ravi-history");
+        if (savedHistory) setMessages(JSON.parse(savedHistory));
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("ask-ravi-history", JSON.stringify(messages));
+    }, [messages]);
 
     /**
      * Load Suggested Questions
@@ -158,6 +170,7 @@ const ChatBot: React.FC = () => {
             }
 
             const assistantId = crypto.randomUUID();
+            streamController.current = new AbortController();
 
             setMessages((prev) => [
                 ...prev,
@@ -187,7 +200,8 @@ const ChatBot: React.FC = () => {
                     );
 
                 },
-                STREAM_SPEED
+                STREAM_SPEED,
+                streamController.current.signal
             );
             setMessages((prev) =>
                 prev.map((message) =>
@@ -219,10 +233,15 @@ const ChatBot: React.FC = () => {
         } finally {
 
             setLoading(false);
+            streamController.current = null;
 
         }
 
     };
+
+    const stopGeneration = () => streamController.current?.abort();
+    const copyResponse = async (content: string) => { await navigator.clipboard?.writeText(content); };
+    const clearConversation = () => setMessages(INITIAL_MESSAGES);
 
     /**
      * Suggested Question Click
@@ -234,6 +253,15 @@ const ChatBot: React.FC = () => {
         sendMessage(question);
 
     };
+
+    useEffect(() => {
+        if (!chatRequest) return;
+        setIsOpen(true);
+        sendMessage(chatRequest.text);
+        onRequestHandled();
+        // Requests are consumed exactly once by their unique id from App.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [chatRequest]);
 
     return (
         <>
@@ -252,6 +280,9 @@ const ChatBot: React.FC = () => {
                 onInputChange={setInput}
                 onSend={() => sendMessage()}
                 onQuestionClick={handleQuestionClick}
+                onStop={stopGeneration}
+                onCopy={copyResponse}
+                onClear={clearConversation}
             />
         </>
     );

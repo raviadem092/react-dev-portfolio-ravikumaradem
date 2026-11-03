@@ -15,10 +15,10 @@ const ChatInput: React.FC<ChatInputProps> = ({
 }) => {
 
     const handleKeyDown = (
-        event: React.KeyboardEvent<HTMLInputElement>
+        event: React.KeyboardEvent<HTMLTextAreaElement>
     ) => {
 
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
             onSend();
         }
@@ -28,23 +28,23 @@ const ChatInput: React.FC<ChatInputProps> = ({
     return (
         <div className="chat-input-container">
 
-            <input
-                type="text"
+            <textarea
                 className="chat-input"
                 placeholder="Ask Ravi anything..."
                 value={value}
                 disabled={loading}
                 onChange={(e) => onChange(e.target.value)}
                 onKeyDown={handleKeyDown}
+                rows={1}
             />
 
             <button
                 type="button"
                 className="send-button"
-                disabled={loading || !value.trim()}
+                disabled={!loading && !value.trim()}
                 onClick={onSend}
             >
-                ➤
+                {loading ? "■" : "➤"}
             </button>
 
         </div>
